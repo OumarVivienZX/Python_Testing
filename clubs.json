@@ -12,5 +12,10 @@
     {   "name":"She Lifts",
         "email": "kate@shelifts.co.uk",
         "points":"12"
+    },
+
+    {   "name":"Mega Club",
+        "email": "koumarvivien@gmail.com",
+        "points":"6"
     }
 ]}

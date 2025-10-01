@@ -1,36 +1,402 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary | GUDLFT Registration</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .welcome-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .club-email {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Points Section */
+        .points-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            margin: 20px 40px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+        }
+
+        .points-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .points-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Messages Flash */
+        .flash-messages {
+            margin: 0 40px 20px 40px;
+        }
+
+        .flash-messages ul {
+            list-style: none;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .flash-messages li {
+            color: #856404;
+            padding: 5px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+
+        .flash-messages li:last-child {
+            border-bottom: none;
+        }
+
+        /* Competitions Section */
+        .competitions-section {
+            padding: 0 40px 40px 40px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .competitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .competition-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .competition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .competition-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .competition-details {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .competition-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .detail-icon {
+            width: 20px;
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .places-available {
+            font-weight: 600;
+            color: #28a745;
+        }
+
+        .places-unavailable {
+            font-weight: 600;
+            color: #dc3545;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .book-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .no-booking {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 10px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-available {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-full {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+                text-align: center;
+                flex-direction: column;
+            }
+
+            .points-card, .flash-messages, .competitions-section {
+                margin: 15px 20px;
+            }
+
+            .competitions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .competition-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 12px;
+            }
+
+            .points-value {
+                font-size: 2rem;
+            }
+
+            .welcome-section h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        /* Animation pour les cartes */
+        .competition-card {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-        <h2>Welcome, {{club['email']}} </h2><a href="{{url_for('logout')}}">Logout</a>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="welcome-section">
+                <h2>Welcome back!</h2>
+                <div class="club-email">{{club['email']}}</div>
+            </div>
+            <a href="{{url_for('logout')}}" class="logout-btn">Logout</a>
+        </div>
 
-    {% with messages = get_flashed_messages()%}
-    {% if messages %}
-        <ul>
-       {% for message in messages %}
-            <li>{{message}}</li>
-        {% endfor %}
-       </ul>
-    {% endif%}
-    Points available: {{club['points']}}
-    <h3>Competitions:</h3>
-    <ul>
-        {% for comp in competitions%}
-        <li>
-            {{comp['name']}}<br />
-            Date: {{comp['date']}}</br>
-            Number of Places: {{comp['numberOfPlaces']}}
-            {%if comp['numberOfPlaces']|int >0%}
-            <a href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-            {%endif%}
-        </li>
-        <hr />
-        {% endfor %}
-    </ul>
-    {%endwith%}
+        <!-- Points Available -->
+        <div class="points-card">
+            <div class="points-label">Points Available</div>
+            <div class="points-value">{{club['points']}}</div>
+        </div>
 
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Competitions Section -->
+        <div class="competitions-section">
+            <h3 class="section-title">Available Competitions</h3>
+            <div class="competitions-grid">
+                {% for comp in competitions %}
+                <div class="competition-card">
+                    <!-- Status Badge -->
+                    <div class="status-badge {% if comp['numberOfPlaces']|int > 0 %}status-available{% else %}status-full{% endif %}">
+                        {% if comp['numberOfPlaces']|int > 0 %}Available{% else %}Full{% endif %}
+                    </div>
+
+                    <div class="competition-name">{{ comp['name'] }}</div>
+
+                    <div class="competition-details">
+                        <div class="competition-detail">
+                            <span class="detail-icon">📅</span>
+                            <span>Date: {{ comp['date'] }}</span>
+                        </div>
+                        <div class="competition-detail">
+                            <span class="detail-icon">🎯</span>
+                            <span>Places:
+                                <span class="{% if comp['numberOfPlaces']|int > 0 %}places-available{% else %}places-unavailable{% endif %}">
+                                    {{ comp['numberOfPlaces'] }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    {% if comp['numberOfPlaces']|int > 0 %}
+                    <a href="{{ url_for('book', competition=comp['name'], club=club['name']) }}" class="book-btn">
+                        Book Places
+                    </a>
+                    {% else %}
+                    <div class="no-booking">
+                        No places available
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation pour les cartes de compétition
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.competition-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Confirmation pour la réservation
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('book-btn')) {
+                const competitionName = e.target.closest('.competition-card').querySelector('.competition-name').textContent;
+                if (!confirm(`Are you sure you want to book places for "${competitionName}"?`)) {
+                    e.preventDefault();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
