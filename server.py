@@ -2,14 +2,15 @@ import json
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 
+#le with ouvre le fichier clubs.json en mode lecture et le charge avec json.load
+#le json.load lit le contenu du fichier et le convertit en un objet Python (ici, un dictionnaire)
+#ensuite on accede a la cle "clubs" du dictionnaire pour obtenir la liste des clubs
 def loadClubs():
     with open("clubs.json") as c:
         listOfClubs = json.load(c)["clubs"]
         return listOfClubs 
     
-#le with ouvre le fichier clubs.json en mode lecture et le charge avec json.load
-#le json.load lit le contenu du fichier et le convertit en un objet Python (ici, un dictionnaire)
-#ensuite on accede a la cle "clubs" du dictionnaire pour obtenir la liste des clubs
+
 
 def loadCompetitions():
     with open("competitions.json") as comps:
@@ -17,6 +18,9 @@ def loadCompetitions():
         return listOfCompetitions
 
 
+def saveClubs(clubs):#
+    with open("clubs.json", "w") as f:
+        json.dump({"clubs": clubs}, f)
 
 app = Flask(__name__)# création de l'application Flask
 app.secret_key = "something_special"
@@ -54,7 +58,7 @@ def book(competition, club):
             "booking.html", club=foundClub, competition=foundCompetition
         )
     else:
-        flash("Something went wrong-please try again")
+        flash("Nous rencontrons des difficultés pour trouver le club ou la compétition, veuillez réessayer")
         return render_template("welcome.html", club=club, competitions=competitions)
 
 
@@ -75,7 +79,7 @@ def purchasePlaces():
 
 @app.route("/logout")
 def logout():
-    return redirect(url_for("index"))
+    return redirect(url_for("index"))#redirect
 
 
 if __name__ == "__main__":
