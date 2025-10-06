@@ -18,9 +18,14 @@ def loadCompetitions():
         return listOfCompetitions
 
 
-def saveClubs(clubs):#
+def saveClubs(clubs):
     with open("clubs.json", "w") as f:
         json.dump({"clubs": clubs}, f)
+
+
+def saveCompetitions(competitions):
+    with open("competitions.json", "w") as f:
+        json.dump({"competitions": competitions}, f)
 
 app = Flask(__name__)# création de l'application Flask
 app.secret_key = "something_special"
