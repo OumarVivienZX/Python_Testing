@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord des Points des Clubs || GUDLFT</title>
+    <style>
+        /* Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        header {
+            background: #764ba2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }   
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }   
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+            color: #555;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .rank {
+            font-weight: bold;
+            color: #764ba2;
+        }
+        .points {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .club-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .club-info {
+            display: flex;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            th, td {
+                padding: 10px;
+            }
+            .logo {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
